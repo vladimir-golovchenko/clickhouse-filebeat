@@ -1,0 +1,33 @@
+# filebeat options: https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-reference-yml.html
+
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/clickhouse-server/clickhouse-server.err.log
+
+processors:
+   - drop_fields:
+      # Prevent fail of Logstash (https://www.elastic.co/guide/en/beats/libbeat/current/breaking-changes-6.3.html#custom-template-non-versioned-indices)
+      fields: ["host"]
+   - dissect:
+      # tokenizer syntax: https://www.elastic.co/guide/en/logstash/current/plugins-filters-dissect.html.
+      tokenizer: "%{} %{} [%{}] {%{}} <%{level}> %{message}"
+      field: "message"
+      target_prefix: "clickhouse"
+
+fields:
+  log_type: clickhouse
+  
+output.logstash:
+  hosts: ["11.22.33.44"]
+
+# https://www.elastic.co/guide/en/beats/filebeat/current/configuration-logging.html
+# show log: tail /var/log/filebeat/filebeat -n 10
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: /var/log/filebeat
+  name: filebeat
+  keepfiles: 3
+  permissions: 0644
