@@ -1,6 +1,7 @@
 # clickhouse-filebeat
 Configuration Filebeat for ClickHouse logs.
 
+![image](https://github.com/vladimir77/clickhouse-filebeat/blob/initial-commit/assets/clickhouse-filebeat-censored.png)
 
 ## Setup steps
 
