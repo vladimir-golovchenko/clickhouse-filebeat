@@ -1,9 +1,10 @@
 # clickhouse-filebeat
 Configuration Filebeat for ClickHouse logs.
 
+
 ## Setup steps
 
-1. Install ([Install Elastic Stack with Debian packages](https://documentation.wazuh.com/current/installation-guide/installing-elastic-stack/elastic_server_deb.html#))
+1. [Install Elastic Stack with Debian packages](https://documentation.wazuh.com/current/installation-guide/installing-elastic-stack/elastic_server_deb.html#)
 
 ```bash
 # Oracle Java JRE or OpenJDK 8
@@ -18,7 +19,7 @@ sudo apt-get update
 sudo apt-get install filebeat
 ```
 
-2. Edit [configuration](https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html) file
+2. Edit [configuration file](https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html)
 
 Open config file '/etc/filebeat/filebeat.yml' and copy into the content of file 'filebeat.yml'.
 ```bash
@@ -29,3 +30,9 @@ sudo nano /etc/filebeat/filebeat.yml
 ```bash
 sudo service filebeat start
 ```
+
+## Troubleshooting
+
+### Logstash
+
+.. logs
