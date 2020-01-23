@@ -22,12 +22,14 @@ sudo apt-get install filebeat
 
 2. Edit [configuration file](https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html)
 
-Open config file '/etc/filebeat/filebeat.yml' and copy into the content of file 'filebeat.yml'.
+* open config file '/etc/filebeat/filebeat.yml'
 ```bash
 sudo nano /etc/filebeat/filebeat.yml
 ```
+* replace its content by [filebeat.yml](https://github.com/vladimir77/clickhouse-filebeat/blob/master/filebeat.yml)
+* set the valid IP to param *output.logstash: hosts*
 
-3. Run service
+3. Run *filebeat* service
 ```bash
 sudo service filebeat start
 ```
