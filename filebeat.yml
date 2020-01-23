@@ -3,21 +3,31 @@
 filebeat.inputs:
 - type: log
   enabled: true
+  # https://www.elastic.co/guide/en/beats/filebeat/current/multiline-examples.html
+  # This regexp describes the begin of log row (for example, '2019.10.23 21:13:51.384500 [ 322 ] ..').
+  multiline.pattern: '^\d{4}.\d{1,2}.\d{1,2}'
+  multiline.negate: true
+  multiline.match: after  
   paths:
     - /var/log/clickhouse-server/clickhouse-server.err.log
 
+# https://www.elastic.co/guide/en/beats/filebeat/current/defining-processors.html
 processors:
+   # https://www.elastic.co/guide/en/beats/filebeat/current/drop-fields.html 
    - drop_fields:
       # Prevent fail of Logstash (https://www.elastic.co/guide/en/beats/libbeat/current/breaking-changes-6.3.html#custom-template-non-versioned-indices)
       fields: ["host"]
+   # https://www.elastic.co/guide/en/beats/filebeat/current/dissect.html
    - dissect:
       # tokenizer syntax: https://www.elastic.co/guide/en/logstash/current/plugins-filters-dissect.html.
-      tokenizer: "%{} %{} [%{}] {%{}} <%{level}> %{message}"
+      tokenizer: "%{timestamp} [%{threadId}] {%{}} <%{level}> %{title}"
       field: "message"
-      target_prefix: "clickhouse"
+      target_prefix: ""   
 
 fields:
-  log_type: clickhouse
+  application: clickhouse
+  
+fields_under_root: true
   
 output.logstash:
   hosts: ["11.22.33.44"]
