@@ -31,9 +31,3 @@ sudo nano /etc/filebeat/filebeat.yml
 ```bash
 sudo service filebeat start
 ```
-
-## Troubleshooting
-
-### Logstash
-
-.. logs
